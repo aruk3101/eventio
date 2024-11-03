@@ -19,4 +19,21 @@ class UserModel extends Model
     {
         return $this->insert($data);
     }
+
+    public function verifyUser($email, $password)
+    {
+        $user = $this->findUserByEmail($email);
+        if ($user) {
+            if (password_verify($password, $user['hashed_password'])) {
+                return $user;
+            }
+        }
+        return null;
+    }
+
+    public function getLoggedInUser()
+    {
+        if (!session()->has('loggedUser')) return null;
+        return $this->where('user_id', session()->get('loggedUser'))->first();
+    }
 }

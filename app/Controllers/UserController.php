@@ -29,14 +29,47 @@ class UserController extends BaseController
         );
     }
 
-    public function index(): string
+    public function index()
     {
-        return $this->returnView('user/userPage');
+        if (!session()->has("loggedUser")) {
+            $this->login();
+        } else {
+            $userModel = new UserModel();
+            $user = $userModel->getLoggedInUser();
+            return $this->returnView('user/userPage', ['user' => $user]);
+        }
     }
 
     public function login(): string
     {
         return $this->returnView('user/login');
+    }
+
+    public function submitLogin()
+    {
+        // Walidacja danych logowania
+        $validation = \Config\Services::validation();
+        $validation->setRules([
+            'email'    => 'required|valid_email',
+            'password' => 'required|min_length[6]'
+        ]);
+
+        if (!$this->validate($validation->getRules())) {
+            return redirect()->back()->withInput()->with('errors', $validation->getErrors());
+        }
+
+        $userModel = new UserModel();
+        $email = $this->request->getPost('email');
+        $password = $this->request->getPost('password');
+
+        $user = $userModel->verifyUser($email, $password);
+
+        if ($user) {
+            session()->set('loggedUser', $user['user_id']);
+            return redirect()->to('/user')->with('message', 'Zalogowano pomyślnie!');
+        } else {
+            return redirect()->back()->withInput()->with('errors', ['Błędny e-mail lub hasło.']);
+        }
     }
 
     public function register(): string
@@ -77,5 +110,11 @@ class UserController extends BaseController
 
         // sukces i przekierowanie
         return redirect()->to('/user/register')->with('message', 'Zarejestrowany pomyślnie! Teraz możesz się zalogować.');
+    }
+
+    public function logout()
+    {
+        session()->destroy(); // Zniszczenie sesji
+        return redirect()->to('/user/login')->with('message', 'Wylogowano pomyślnie!');
     }
 }
