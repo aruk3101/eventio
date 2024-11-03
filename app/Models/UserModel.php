@@ -36,4 +36,9 @@ class UserModel extends Model
         if (!session()->has('loggedUser')) return null;
         return $this->where('user_id', session()->get('loggedUser'))->first();
     }
+
+    public function updateUser($userId, $data)
+    {
+        return $this->update($userId, $data);
+    }
 }

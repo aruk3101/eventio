@@ -13,5 +13,5 @@ Strona zalogowanego użytkownika
     Email : <?php echo $user['email'] ?><Br>
     W Event.io od : <?php echo $user['created_at'] ?>
     <br>
-    <a href="#">Edytuj</a>
+    <a href="<?= site_url('user/edit') ?>">Edytuj</a>
 </div>

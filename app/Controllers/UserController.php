@@ -32,12 +32,53 @@ class UserController extends BaseController
     public function index()
     {
         if (!session()->has("loggedUser")) {
-            $this->login();
+            return redirect()->to('/user/login')->with('errors', ['Musisz być zalogowany aby wejść na profil użytkownika']);
         } else {
             $userModel = new UserModel();
             $user = $userModel->getLoggedInUser();
             return $this->returnView('user/userPage', ['user' => $user]);
         }
+    }
+
+
+    public function edit()
+    {
+        if (!session()->has("loggedUser")) {
+            return redirect()->to('/user/login')->with('errors', ['Musisz być zalogowany, aby edytować swoje dane.']);
+        } else {
+            $userModel = new UserModel();
+            $user = $userModel->getLoggedInUser();
+            return $this->returnView('user/edit', ['user' => $user]);
+        }
+    }
+
+    public function submitEdit()
+    {
+        if (!session()->has('loggedUser')) {
+            return redirect()->to('/user/login')->with('errors', ['Musisz być zalogowany, aby edytować swoje dane.']);
+        }
+
+        $userId = session()->get('loggedUser');
+        $userModel = new UserModel();
+
+        $validation = \Config\Services::validation();
+        $validation->setRules([
+            'username' => 'required|min_length[3]|max_length[50]',
+            'email'    => 'required|valid_email',
+        ]);
+
+        if (!$this->validate($validation->getRules())) {
+            return redirect()->back()->withInput()->with('errors', $validation->getErrors());
+        }
+
+        $data = [
+            'username' => $this->request->getPost('username'),
+            'email'    => $this->request->getPost('email'),
+        ];
+
+        $userModel->updateUser($userId, $data);
+
+        return redirect()->to('/user')->with('message', 'Dane zostały zaktualizowane pomyślnie!');
     }
 
     public function login(): string
