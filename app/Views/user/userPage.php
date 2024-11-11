@@ -14,4 +14,6 @@ Strona zalogowanego użytkownika
     W Event.io od : <?php echo $user['created_at'] ?>
     <br>
     <a href="<?= site_url('user/edit') ?>">Edytuj</a>
+    <br>
+    <a href="<?= site_url('user/events') ?>">Moje wydarzenia</a>
 </div>
