@@ -41,17 +41,19 @@
 <p><strong>Liczba zapisanych osób: </strong><?= $registeredCount ?></p>
 
 <!-- Opcje zapisania i wypisania -->
-<?php if ($registration): ?>
-    <p style="color: green;">Jesteś zapisany na to wydarzenie.</p>
-    <a href="<?= site_url('events/unregister/' . $event['event_id']) ?>">Wypisz się</a>
-<?php else: ?>
-    <form action="<?= site_url('events/register/' . $event['event_id']) ?>" method="post">
-        <label>
-            <input type="checkbox" name="is_anonymous" value="1"> Zapisz mnie anonimowo
-        </label>
-        <br>
-        <button type="submit">Zapisz się na wydarzenie</button>
-    </form>
+<?php if ($loggedIn): ?>
+    <?php if ($registration): ?>
+        <p style="color: green;">Jesteś zapisany na to wydarzenie.</p>
+        <a href="<?= site_url('events/unregister/' . $event['event_id']) ?>">Wypisz się</a>
+    <?php else: ?>
+        <form action="<?= site_url('events/register/' . $event['event_id']) ?>" method="post">
+            <label>
+                <input type="checkbox" name="is_anonymous" value="1"> Zapisz mnie anonimowo
+            </label>
+            <br>
+            <button type="submit">Zapisz się na wydarzenie</button>
+        </form>
+    <?php endif; ?>
 <?php endif; ?>
 <br>
 

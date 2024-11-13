@@ -122,12 +122,21 @@ class EventController extends BaseController
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound("Wydarzenie o ID $id nie zostało znalezione.");
         }
 
+        $registration = false;
+        $loggedIn = false;
+        if (session()->get('loggedUser')) {
+            $loggedIn = true;
+            $userId = session()->get('loggedUser');
+            $registration = $registrationModel->isUserRegistered($id, $userId);
+        }
 
-        $userId = session()->get('loggedUser');
-        $registration = $registrationModel->isUserRegistered($id, $userId);
 
         $organizer = $userModel->find($event['created_by_user_id']);
-        $isOrganizer = ($userId == $event['created_by_user_id']);
+        $isOrganizer = false;
+        if (session()->get('loggedUser')) {
+            $userId = session()->get('loggedUser');
+            $isOrganizer = ($userId == $event['created_by_user_id']);
+        }
 
         $registeredCount = $registrationModel->getRegisteredCount($id);
 
@@ -143,7 +152,8 @@ class EventController extends BaseController
             'isOrganizer' => $isOrganizer,
             'participants' => $participants,
             'media' => $media,
-            'registeredCount' => $registeredCount
+            'registeredCount' => $registeredCount,
+            'loggedIn' => $loggedIn
         ]);
     }
 
