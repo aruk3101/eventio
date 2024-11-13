@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Lis 03, 2024 at 05:17 PM
+-- Generation Time: Lis 13, 2024 at 07:52 PM
 -- Wersja serwera: 10.4.28-MariaDB
 -- Wersja PHP: 8.2.4
 
@@ -51,6 +51,13 @@ CREATE TABLE `eventmedia` (
   `uploaded_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `eventmedia`
+--
+
+INSERT INTO `eventmedia` (`media_id`, `event_id`, `media_url`, `media_type`, `uploaded_at`) VALUES
+(1, 2, 'uploads/event_media/1731350547_2be51fef7ecf6efb8ebc.jpg', '', '2024-11-11 18:42:27');
+
 -- --------------------------------------------------------
 
 --
@@ -75,9 +82,19 @@ CREATE TABLE `eventratings` (
 CREATE TABLE `eventregistrations` (
   `registration_id` int(11) NOT NULL,
   `event_id` int(11) DEFAULT NULL,
-  `participant_id` int(11) DEFAULT NULL,
-  `is_notified` tinyint(1) DEFAULT 0
+  `user_id` int(11) DEFAULT NULL,
+  `is_anonymous` tinyint(1) DEFAULT 0,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `eventregistrations`
+--
+
+INSERT INTO `eventregistrations` (`registration_id`, `event_id`, `user_id`, `is_anonymous`, `created_at`, `updated_at`) VALUES
+(5, 2, 5, 0, '2024-11-11 16:12:49', '2024-11-11 17:12:49'),
+(6, 2, 6, 1, '2024-11-11 16:13:15', '2024-11-11 17:13:15');
 
 -- --------------------------------------------------------
 
@@ -93,10 +110,19 @@ CREATE TABLE `events` (
   `end_datetime` datetime NOT NULL,
   `location_id` int(11) DEFAULT NULL,
   `max_participants` int(11) DEFAULT NULL,
-  `is_anonymous_allowed` tinyint(1) DEFAULT 0,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `created_by_user_id` int(11) NOT NULL,
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `events`
+--
+
+INSERT INTO `events` (`event_id`, `name`, `description`, `start_datetime`, `end_datetime`, `location_id`, `max_participants`, `created_at`, `created_by_user_id`, `updated_at`) VALUES
+(2, 'awdawd1', 'awdawdawawd1', '2024-11-02 19:40:00', '2024-11-16 19:40:00', 2, 254, '2024-11-09 18:40:34', 4, '2024-11-11 18:26:14'),
+(3, 'awdawd', 'awdawdawdawdawdawd', '2024-11-01 16:27:00', '2024-11-23 16:27:00', 3, 213, '2024-11-11 15:27:39', 4, '2024-11-11 15:27:39'),
+(4, 'vweqvevQQWDQWD123', 'ACVEQAWDQWAWDAWDQ23Q2AD', '2024-10-23 16:45:00', '2024-11-07 16:45:00', 4, 2314, '2024-11-11 15:45:21', 4, '2024-11-11 15:45:21');
 
 -- --------------------------------------------------------
 
@@ -112,6 +138,15 @@ CREATE TABLE `locations` (
   `longitude` decimal(9,6) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `locations`
+--
+
+INSERT INTO `locations` (`location_id`, `name`, `address`, `latitude`, `longitude`) VALUES
+(2, 'location name1', 'location address1', NULL, NULL),
+(3, 'awdawdawdawd', 'aadwawdawd', NULL, NULL),
+(4, 'awdawda', 'wdawdawdawdawd', NULL, NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -125,22 +160,6 @@ CREATE TABLE `notifications` (
   `notification_type` enum('email','push') DEFAULT NULL,
   `message` text DEFAULT NULL,
   `sent_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Struktura tabeli dla tabeli `participants`
---
-
-CREATE TABLE `participants` (
-  `participant_id` int(11) NOT NULL,
-  `event_id` int(11) DEFAULT NULL,
-  `user_id` int(11) DEFAULT NULL,
-  `is_confirmed` tinyint(1) DEFAULT 0,
-  `is_anonymous` tinyint(1) DEFAULT 0,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -165,7 +184,10 @@ INSERT INTO `users` (`user_id`, `username`, `email`, `hashed_password`, `created
 (1, 'adawdawd', 'awdawd@awdaw.d', '$2y$10$0svu3/JONvAe33..YGvs6.YRWT8XAKQfDW2rDKdHmWSxXdQGdK/oa', '2024-11-03 15:45:33'),
 (2, 'adawdawd', 'awdawd@awdaw.dd', '$2y$10$ZdrTXMq.kAHbr29/WRitYO7noSIjXoEWd0seE1OqT7JSH6UTUmKGq', '2024-11-03 15:46:28'),
 (3, 'abc', 'awdawd@adw.daw', '$2y$10$DWlw.fht4CnpPes.3yj5p.dWjWRDT3axmwrWlSrqw1Dh9Tv7/5q2y', '2024-11-03 15:47:21'),
-(4, 'user2', 'user@user.com', '$2y$10$NeLq4bJJ2y/1/ZQPne./PuUQFNwmHuw3ew3THDgdtwJ4KYa3Qt4tu', '2024-11-03 15:56:58');
+(4, 'user3', 'user@user.com', '$2y$10$NeLq4bJJ2y/1/ZQPne./PuUQFNwmHuw3ew3THDgdtwJ4KYa3Qt4tu', '2024-11-03 15:56:58'),
+(5, 'userTest1', 'userTest1@user.com', '$2y$10$X3iYMgDO9FpOh5J/RCQTfO2eJXLswLvpFPdzOW.Lw.FnVdja4tsmi', '2024-11-11 17:12:04'),
+(6, 'userTest2', 'userTest2@user.com', '$2y$10$bN.s8csSAIsbwgnjcmS9Z..Hwwoq2bf/CeMTahv3H6XsrO7KxJJGO', '2024-11-11 17:12:19'),
+(7, 'userTest3', 'userTest3@user.com', '$2y$10$mu5Q3LFAckOl/5lCVnfMi.0hnSO9Cew8K/IydRk6UeUwBCG/czxg.', '2024-11-11 17:12:32');
 
 --
 -- Indeksy dla zrzutów tabel
@@ -199,8 +221,7 @@ ALTER TABLE `eventratings`
 --
 ALTER TABLE `eventregistrations`
   ADD PRIMARY KEY (`registration_id`),
-  ADD KEY `event_id` (`event_id`),
-  ADD KEY `participant_id` (`participant_id`);
+  ADD KEY `event_id` (`event_id`);
 
 --
 -- Indeksy dla tabeli `events`
@@ -219,13 +240,6 @@ ALTER TABLE `locations`
 --
 ALTER TABLE `notifications`
   ADD PRIMARY KEY (`notification_id`);
-
---
--- Indeksy dla tabeli `participants`
---
-ALTER TABLE `participants`
-  ADD PRIMARY KEY (`participant_id`),
-  ADD KEY `idx_event_participants` (`event_id`);
 
 --
 -- Indeksy dla tabeli `users`
@@ -248,7 +262,7 @@ ALTER TABLE `eventcomments`
 -- AUTO_INCREMENT for table `eventmedia`
 --
 ALTER TABLE `eventmedia`
-  MODIFY `media_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `media_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `eventratings`
@@ -260,19 +274,19 @@ ALTER TABLE `eventratings`
 -- AUTO_INCREMENT for table `eventregistrations`
 --
 ALTER TABLE `eventregistrations`
-  MODIFY `registration_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `registration_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `events`
 --
 ALTER TABLE `events`
-  MODIFY `event_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `event_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `locations`
 --
 ALTER TABLE `locations`
-  MODIFY `location_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `location_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `notifications`
@@ -281,16 +295,10 @@ ALTER TABLE `notifications`
   MODIFY `notification_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `participants`
---
-ALTER TABLE `participants`
-  MODIFY `participant_id` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Constraints for dumped tables
@@ -320,14 +328,7 @@ ALTER TABLE `eventratings`
 -- Constraints for table `eventregistrations`
 --
 ALTER TABLE `eventregistrations`
-  ADD CONSTRAINT `eventregistrations_ibfk_1` FOREIGN KEY (`event_id`) REFERENCES `events` (`event_id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `eventregistrations_ibfk_2` FOREIGN KEY (`participant_id`) REFERENCES `participants` (`participant_id`) ON DELETE CASCADE;
-
---
--- Constraints for table `participants`
---
-ALTER TABLE `participants`
-  ADD CONSTRAINT `participants_ibfk_1` FOREIGN KEY (`event_id`) REFERENCES `events` (`event_id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `eventregistrations_ibfk_1` FOREIGN KEY (`event_id`) REFERENCES `events` (`event_id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
