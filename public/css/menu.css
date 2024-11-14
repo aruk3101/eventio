@@ -1,0 +1,7 @@
+menu{
+    min-height: 40px;
+    color: white;
+    width: 100%;
+    background: linear-gradient(90deg, rgb(255, 54, 111) 0%, rgb(239, 111, 199) 35%, rgb(67, 215, 215) 100%);
+    background-color: rgb(255, 54, 111);
+}
