@@ -15,7 +15,7 @@
     <div class="center"><img class="homeBaner" src="<?php echo base_url("uploads/event_media/baner.png"); ?>"></div><br><br>
     <div>
         <h1 class="whiteH1">Sprawdź wydarzenia w swojej okolicy już dziś!</h1>
-        <div class="center"><button class="veryNiceButton">Zobacz</button></div><br><br>
+        <div class="center"><button class="veryNiceButton"><a href="<?= site_url('events/events') ?>">Zobacz</a></button></div><br><br>
         <h1 class="whiteH1">Trochę informacji o nas</h1>
         <div class="container">
             <div class="photoBlock">

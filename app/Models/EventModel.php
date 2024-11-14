@@ -23,7 +23,10 @@ class EventModel extends Model
 
     public function getEventsByUser(int $userId, int $perPage = 10)
     {
-        return $this->where('created_by_user_id', $userId)
+        return $this->join('locations', 'locations.location_id = events.location_id')
+            ->select('events.*, locations.name as location_name, locations.address as location_address')
+            ->select("CASE WHEN end_datetime < NOW() THEN 1 ELSE 0 END AS is_finished")
+            ->where('created_by_user_id', $userId)
             ->paginate($perPage);
     }
 
