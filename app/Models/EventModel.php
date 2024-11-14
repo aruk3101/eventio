@@ -29,13 +29,20 @@ class EventModel extends Model
 
     public function getAllEvents($search = null, $perPage = 10)
     {
+        // Dołączenie tabeli `locations`
+        $this->join('locations', 'locations.location_id = events.location_id')
+            ->select('events.*, locations.name as location_name, locations.address as location_address')
+            ->select("CASE WHEN end_datetime < NOW() THEN 1 ELSE 0 END AS is_finished");
+
+        // Dodanie warunków wyszukiwania, jeśli jest podane
         if ($search) {
-            $this->like('name', $search)
-                ->orLike('description', $search);
+            $this->groupStart()
+                ->like('events.name', $search)
+                ->orLike('events.description', $search)
+                ->groupEnd();
         }
 
-        $this->select("*, CASE WHEN end_datetime < NOW() THEN 1 ELSE 0 END AS is_finished");
-
+        // Zwracanie wyników z paginacją
         return $this->paginate($perPage);
     }
 
