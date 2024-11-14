@@ -1,6 +1,8 @@
 header{
-    min-height: 100px;
-    background-color: black;
+    min-height: 50px;
+    background-color: rgb(255, 54, 111);
     color: white;
     width: 100%;
+    text-align: center;
+    background: linear-gradient(90deg, rgb(255, 54, 111) 0%, rgb(239, 111, 199) 35%, rgb(67, 215, 215) 100%);
 }

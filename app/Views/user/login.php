@@ -1,4 +1,4 @@
-<h1>Logowanie użytkownika</h1>
+<h1 class="h1">Logowanie użytkownika</h1>
 
 <?php if (session()->getFlashdata('errors')): ?>
     <div>
@@ -8,12 +8,16 @@
     </div>
 <?php endif; ?>
 
-<form action="<?= site_url('user/login/submit') ?>" method="post">
-    <label for="email">Email:</label>
-    <input type="email" name="email" id="email" value="<?= old('email') ?>" required>
-
-    <label for="password">Hasło:</label>
-    <input type="password" name="password" id="password" required>
-
-    <button type="submit">Zaloguj</button>
+<form class="container" action="<?= site_url('user/login/submit') ?>" method="post">
+    <label class="form-label" for="email">Email:</label>
+    <input class="form-control" type="email" name="email" id="email" value="<?= old('email') ?>" required>
+    <br>
+    <label class="form-label" for="password">Hasło:</label>
+    <input class="form-control" type="password" name="password" id="password" required>
+    <br>
+    <button class="button" type="submit">Zaloguj</button>
 </form>
+
+<div class="center">
+    <a class="link" href="<?= site_url('user/register') ?>">Nie masz konta? Zarejestruj się!</a>
+</div>

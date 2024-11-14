@@ -1,15 +1,15 @@
-<h1>Wszystkie Wydarzenia</h1>
+<h1 class="h1">Wszystkie Wydarzenia</h1>
 
-<form action="<?= site_url('events/events') ?>" method="get">
-    <input type="text" name="search" value="<?= esc($search) ?>" placeholder="Szukaj wydarzeń">
-    <button type="submit">Szukaj</button>
+<form class="container center" action="<?= site_url('events/events') ?>" method="get">
+    <input class="search" width="200px"  type="text" name="search" value="<?= esc($search) ?>" placeholder="Szukaj wydarzeń">
+    <button class="button" type="submit">Szukaj</button>
 </form>
 
 <?php if (!empty($events) && count($events) > 0): ?>
     <ul>
         <?php foreach ($events as $event): ?>
             <li>
-                <a href="<?= site_url('events/view/' . $event['event_id']) ?>">
+                <a class="link" href="<?= site_url('events/view/' . $event['event_id']) ?>">
                     <?= esc($event['name']) ?> - <?= esc($event['start_datetime']) ?>
                 </a>
                 <?php if ($event['is_finished']): ?>
@@ -22,9 +22,10 @@
     </ul>
 
     <!-- Paginacja -->
+    <div id="pager" class="link">
+    <p>Strony</p>
     <?= $pager->links() ?>
+    </div>
 <?php else: ?>
     <p>Brak wydarzeń do wyświetlenia.</p>
 <?php endif; ?>
-
-<a href="<?= site_url('') ?>">Powrót do panelu</a>

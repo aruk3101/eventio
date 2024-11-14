@@ -1,3 +1,5 @@
 <footer>
-    <h1>Stopka</h1>
+    <div class="container">
+        <p>Autorzy: Damian Raczek, Piotr Majchrzak, Michał Jędrzejczak, Marcin Gawron</p>
+    </div>
 </footer>

@@ -1,3 +1,3 @@
 <header>
-    <h1>Nagłówek</h1>
+    <h1>EventIO</h1>
 </header>

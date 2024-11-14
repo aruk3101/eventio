@@ -17,3 +17,94 @@ main .error{
     margin: 5px;
     border: 1px solid black;
 }
+.button{
+    background-color: rgb(255, 54, 111);
+    width: 100px;
+    height: 40px;
+    border-radius: 5%;
+    border: none;
+    color: white;
+}
+.search{
+    width: 400px;
+    height: 40px;
+}
+.h1{
+    text-align: center;
+    color:rgb(255, 54, 111);
+}
+.center{
+    text-align: center;
+}
+.link{
+    color: rgb(255, 54, 111);
+}
+.label{
+    color: rgb(255, 54, 111);
+    font-weight:500;
+}
+.menuLink{
+    color: white;
+    padding: 5px;
+}
+.menuLink:hover{
+    color: #BB8ECC;
+    text-decoration: none;
+    background-color: white;
+}
+.baner{
+    width: 100%;
+    background: linear-gradient(90deg, rgb(255, 54, 111) 0%, rgb(239, 111, 199) 35%, rgb(67, 215, 215) 100%);
+}
+.whiteH1{
+    color: white;
+    text-align: center;
+}
+.pageInfo{
+    width: 100%;
+}
+.photo{
+   width: 450px;
+   margin: 20px;
+   border-radius: 5%;
+   border: 2px solid white;
+}
+.photoBlock{
+    float: left;
+    width: 50%;
+}
+.textBlock{
+    float: left;
+    padding: 20px;
+    width: 50%;
+}
+.whiteList{
+    color: white;
+}
+.homeBaner{
+    margin: 2px;
+    width: 99%;
+    border-radius: 15px;
+}
+.bgWhite{
+    background-color: white;
+}
+.veryNiceButton{
+    background-color: transparent;
+    width: 200px;
+    height: 50px;
+    border-radius: 5px;
+    border: 2px white solid;
+    font-weight: bold;
+    color: white;
+}
+.veryNiceButton:hover{
+    background-color: white;
+    width: 200px;
+    height: 50px;
+    border-radius: 5px;
+    border: 2px transparent solid;
+    font-weight: bold;
+    color: rgb(239, 111, 199);
+    transition: 1s;
+}
