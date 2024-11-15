@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Lis 13, 2024 at 07:52 PM
+-- Generation Time: Lis 15, 2024 at 01:54 AM
 -- Wersja serwera: 10.4.28-MariaDB
 -- Wersja PHP: 8.2.4
 
@@ -56,7 +56,8 @@ CREATE TABLE `eventmedia` (
 --
 
 INSERT INTO `eventmedia` (`media_id`, `event_id`, `media_url`, `media_type`, `uploaded_at`) VALUES
-(1, 2, 'uploads/event_media/1731350547_2be51fef7ecf6efb8ebc.jpg', '', '2024-11-11 18:42:27');
+(1, 2, 'uploads/event_media/1731350547_2be51fef7ecf6efb8ebc.jpg', '', '2024-11-11 18:42:27'),
+(3, 5, 'uploads/event_media/1731618350_c1024fdcb3d31fcc6665.jpg', '', '2024-11-14 21:05:50');
 
 -- --------------------------------------------------------
 
@@ -93,8 +94,11 @@ CREATE TABLE `eventregistrations` (
 --
 
 INSERT INTO `eventregistrations` (`registration_id`, `event_id`, `user_id`, `is_anonymous`, `created_at`, `updated_at`) VALUES
-(5, 2, 5, 0, '2024-11-11 16:12:49', '2024-11-11 17:12:49'),
-(6, 2, 6, 1, '2024-11-11 16:13:15', '2024-11-11 17:13:15');
+(6, 2, 6, 1, '2024-11-11 16:13:15', '2024-11-11 17:13:15'),
+(7, 3, 5, 1, '2024-11-13 19:01:08', '2024-11-13 20:01:08'),
+(9, 2, 5, 1, '2024-11-14 14:50:06', '2024-11-14 15:50:06'),
+(10, 4, 4, 1, '2024-11-14 19:12:20', '2024-11-14 20:12:20'),
+(11, 5, 4, 1, '2024-11-14 20:05:52', '2024-11-14 21:05:52');
 
 -- --------------------------------------------------------
 
@@ -122,7 +126,8 @@ CREATE TABLE `events` (
 INSERT INTO `events` (`event_id`, `name`, `description`, `start_datetime`, `end_datetime`, `location_id`, `max_participants`, `created_at`, `created_by_user_id`, `updated_at`) VALUES
 (2, 'awdawd1', 'awdawdawawd1', '2024-11-02 19:40:00', '2024-11-16 19:40:00', 2, 254, '2024-11-09 18:40:34', 4, '2024-11-11 18:26:14'),
 (3, 'awdawd', 'awdawdawdawdawdawd', '2024-11-01 16:27:00', '2024-11-23 16:27:00', 3, 213, '2024-11-11 15:27:39', 4, '2024-11-11 15:27:39'),
-(4, 'vweqvevQQWDQWD123', 'ACVEQAWDQWAWDAWDQ23Q2AD', '2024-10-23 16:45:00', '2024-11-07 16:45:00', 4, 2314, '2024-11-11 15:45:21', 4, '2024-11-11 15:45:21');
+(4, 'vweqvevQQWDQWD123', 'ACVEQAWDQWAWDAWDQ23Q2AD', '2024-10-23 16:45:00', '2024-11-07 16:45:00', 4, 2314, '2024-11-11 15:45:21', 4, '2024-11-11 15:45:21'),
+(5, 'testtest', 'testtesttest', '2024-11-15 22:05:00', '2024-11-22 22:05:00', 5, 15, '2024-11-14 21:05:41', 4, '2024-11-14 21:05:41');
 
 -- --------------------------------------------------------
 
@@ -145,7 +150,8 @@ CREATE TABLE `locations` (
 INSERT INTO `locations` (`location_id`, `name`, `address`, `latitude`, `longitude`) VALUES
 (2, 'location name1', 'location address1', NULL, NULL),
 (3, 'awdawdawdawd', 'aadwawdawd', NULL, NULL),
-(4, 'awdawda', 'wdawdawdawdawd', NULL, NULL);
+(4, 'awdawda', 'wdawdawdawdawd', NULL, NULL),
+(5, 'location name', 'location address', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -262,7 +268,7 @@ ALTER TABLE `eventcomments`
 -- AUTO_INCREMENT for table `eventmedia`
 --
 ALTER TABLE `eventmedia`
-  MODIFY `media_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `media_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `eventratings`
@@ -274,19 +280,19 @@ ALTER TABLE `eventratings`
 -- AUTO_INCREMENT for table `eventregistrations`
 --
 ALTER TABLE `eventregistrations`
-  MODIFY `registration_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `registration_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `events`
 --
 ALTER TABLE `events`
-  MODIFY `event_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `event_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `locations`
 --
 ALTER TABLE `locations`
-  MODIFY `location_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `location_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `notifications`
